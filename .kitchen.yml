@@ -1,0 +1,27 @@
+---
+driver:
+  name: vagrant
+  use_sudo: false
+  customize:
+    memory: 1024
+    cpus: 2
+
+provisioner:
+  name: chef_zero
+  always_update_cookbooks: true
+  policyfile_path: policies/vanilla.rb
+
+platforms:
+  - name: l-ubuntu-18.04
+    driver:
+      box: bento/ubuntu-18.04
+    run_list:
+    - recipe[ubuntu]
+    attributes:
+      minecraft:
+        accept_eula: true
+suites:
+  - name: default
+    run_list:
+    - recipe[minecraft]
+    attributes:
