@@ -23,6 +23,7 @@ include_recipe 'runit'
 include_recipe 'minecraft::user'
 
 jar_name = minecraft_file(node['minecraft']['url'])
+ftp_zip = minecraft_file(node['minecraft']['ftb_url'])
 
 directory node['minecraft']['install_dir'] do
   recursive true
@@ -34,6 +35,14 @@ end
 
 remote_file "#{node['minecraft']['install_dir']}/#{jar_name}" do
   source node['minecraft']['url']
+  owner node['minecraft']['user']
+  group node['minecraft']['group']
+  mode 0o644
+  action :create_if_missing
+end
+
+remote_file "#{node['minecraft']['install_dir']}/#{ftp_zip}" do
+  source node['minecraft']['ftb_url']
   owner node['minecraft']['user']
   group node['minecraft']['group']
   mode 0o644
@@ -66,5 +75,5 @@ file "#{node['minecraft']['install_dir']}/eula.txt" do
   content "eula=#{node['minecraft']['accept_eula']}\n"
   mode 0o644
   action :create
-  notifies :restart, 'runit_service[minecraft]', :delayed if node['minecraft']['autorestart']
+  notifies :stop, 'runit_service[minecraft]', :delayed if node['minecraft']['autorestart']
 end

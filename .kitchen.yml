@@ -12,16 +12,11 @@ provisioner:
   policyfile_path: policies/vanilla.rb
 
 platforms:
-  - name: l-ubuntu-18.04
+  - name: ubuntu-18.04
     driver:
       box: bento/ubuntu-18.04
-    run_list:
-    - recipe[ubuntu]
-    attributes:
-      minecraft:
-        accept_eula: true
+
 suites:
-  - name: default
-    run_list:
-    - recipe[minecraft]
-    attributes:
+  - name: vanilla
+    provisioner:
+      policyfile_path: policies/vanilla.rb

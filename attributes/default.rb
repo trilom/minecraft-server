@@ -21,19 +21,20 @@ default['minecraft']['user']                = 'mcserver'
 default['minecraft']['group']               = 'mcserver'
 default['minecraft']['install_dir']         = '/srv/minecraft'
 
-default['minecraft']['url']                 = 'https://s3.amazonaws.com/minecraft-inst/server/1.13.2/minecraft_server.1.13.2.jar'
+default['minecraft']['url']                 = 'https://s3.amazonaws.com/trailmix-minecraft/1.12.2/server.jar'
+default['minecraft']['ftb_url']             = 'https://s3.amazonaws.com/trailmix-minecraft/mods/server/FTBRevelationServer_2.7.0.zip'
 default['minecraft']['server_opts']         = 'nogui'
 
 # Defaults to 40% of your total memory.
 default['minecraft']['xms']                 = "#{(node['memory']['total'].to_i * 0.4).floor / 1024}M"
-# Defaults to 60% of your total memory.
-default['minecraft']['xmx']                 = "#{(node['memory']['total'].to_i * 0.6).floor / 1024}M"
+# Defaults to 80% of your total memory.
+default['minecraft']['xmx']                 = "#{(node['memory']['total'].to_i * 0.8).floor / 1024}M"
 
 # Additional options to be passed to java, for runit only
 default['minecraft']['java-options']        = ''
 default['minecraft']['init_style']          = 'runit'
 
-default['minecraft']['ops']                 = []
+default['minecraft']['ops']                 = [ 'Trilom13','DJKitty2013','DJTotoro2013' ]
 default['minecraft']['banned-ips']          = []
 default['minecraft']['banned-players']      = []
 default['minecraft']['white-list']          = []
